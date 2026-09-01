@@ -1,0 +1,22 @@
+[build-system]
+requires = ["setuptools>=77.0"]
+build-backend = "setuptools.build_meta"
+
+[project]
+name = "log-tfidf-reducer"
+version = "0.1.0"
+description = "uv-installable wrapper around the logreduce binary that auto-downloads the right build for your OS, plus an AI-agent skill."
+readme = "README.md"
+requires-python = ">=3.9"
+license = "MIT"
+dependencies = []
+
+[project.scripts]
+logreduce = "log_tfidf_reducer.runner:main"
+logreduce-skill = "log_tfidf_reducer.installer:main"
+
+[tool.setuptools.packages.find]
+where = ["src"]
+
+[tool.setuptools.package-data]
+"log_tfidf_reducer._skill_assets" = ["*.md"]
