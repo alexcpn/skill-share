@@ -119,7 +119,7 @@ timestamp: <ISO 8601 — the MOST RECENT commit time across this concept's sourc
             If a source file is untracked / has no git history, fall back to the current UTC time.>
 source_files:                     # extension field: repo-relative paths this concept derives from
   - path/to/file.py
-generated_by: speckit-okf/0.4.0   # producer extension (OKF §4.1)
+generated_by: speckit-okf/0.5.0   # producer extension (OKF §4.1)
 open_questions:                   # extension field: unresolved uncertainties (omit if none)
   - "Is the retry budget in submit_order() a hard SLA or a heuristic? Source is ambiguous."
 ```

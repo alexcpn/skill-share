@@ -9,4 +9,4 @@ repo's services, modules, APIs, data models, and operations.
 OKF spec: https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md
 """
 
-__version__ = "0.4.0"
+__version__ = "0.5.0"

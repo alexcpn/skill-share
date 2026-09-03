@@ -4,7 +4,7 @@ build-backend = "setuptools.build_meta"
 
 [project]
 name = "okf-skill"
-version = "0.4.0"
+version = "0.5.0"
 description = "Turn a source-code repository into an Open Knowledge Format (OKF v0.1) knowledge bundle, plus an AI-agent skill."
 readme = "README.md"
 requires-python = ">=3.9"
