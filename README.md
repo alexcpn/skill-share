@@ -13,7 +13,7 @@ here is not just a prompt: it is a real CLI you can run yourself, plus a
 | Skill | Description |
 |-------|-------------|
 | [`log_tfidf_reducer`](./log_tfidf_reducer/README.md) | Wrap the native [`logreduce`](https://github.com/alexcpn/log_tfidf_reducer) binary (auto-downloaded per OS) to shrink noisy logs into an LLM-ready summary before reading them — up to ~99.9% fewer tokens while keeping every error and unique event. |
-| [`okf_skill`](./okf_skill/README.md) | Turn a repository into an [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) knowledge bundle — cross-linked markdown concepts for services, modules, APIs, data models, and operations, with git history mined for the *why*. Generate, incrementally update, clarify open questions, validate. |
+| [`catalogify`](https://github.com/alexcpn/catalogify) *(moved)* | Turn a repository into an [Open Knowledge Format](https://github.com/GoogleCloudPlatform/knowledge-catalog/blob/main/okf/SPEC.md) knowledge catalog: cross-linked markdown concepts for services, modules, APIs, data models and operations, with git history mined for the *why*. **Now its own repo and PyPI package** — `uv tool install catalogify`. |
 
 ## Prerequisites
 
@@ -38,17 +38,17 @@ format works — [Claude Code](https://claude.com/claude-code), Cursor, the
 ## Quick Start
 
 1. Open a terminal and `cd` to the folder you want to work in.
-2. Install the skill you need (example uses `okf_skill`):
+2. Install the skill you need (example uses `log_tfidf_reducer`):
 
 ```bash
-uv tool install --native-tls "git+https://github.com/alexcpn/skill-share.git#subdirectory=okf_skill"
-okf-skill --install
+uv tool install --native-tls "git+https://github.com/alexcpn/skill-share.git#subdirectory=log_tfidf_reducer"
+logreduce-skill --install
 ```
 
 3. Restart your agent, then just ask for what you want:
 
 ```bash
-agent "generate an OKF knowledge bundle for this repo"
+agent "summarise the errors in build.log"
 ```
 
 The agent notices the skill matches, loads it, and drives the CLI for you.
@@ -65,9 +65,9 @@ logreduce-skill --install
 ```
 
 ```bash
-# okf_skill — needs git (and, on Windows, the bash.exe that ships with Git for Windows)
-uv tool install --native-tls "git+https://github.com/alexcpn/skill-share.git#subdirectory=okf_skill"
-okf-skill --install
+# catalogify — now a standalone package, no subdirectory fragment needed
+uv tool install catalogify
+catalogify install
 ```
 
 The `#subdirectory=` fragment points `uv` at one package folder inside this
@@ -75,7 +75,7 @@ repo, so it builds just that skill rather than the whole collection.
 `--native-tls` uses the system certificate store, which matters behind
 TLS-inspecting proxies.
 
-The installer command (e.g. `okf-skill --install`) copies the skill into every
+The installer command (e.g. `logreduce-skill --install`) copies the skill into every
 agent's user-global skills directory (`~/.claude/skills`, `~/.cursor/skills`,
 `~/.codex/skills`, `~/.agents/skills`). **Restart the agent afterwards** so it
 picks up the new skill.
@@ -93,7 +93,7 @@ are what land on your `PATH`.
 | Skill | uv package | Installer command | Executables |
 |-------|-----------|-------------------|-------------|
 | `log_tfidf_reducer` | `log-tfidf-reducer` | `logreduce-skill` | `logreduce` |
-| `okf_skill` | `okf-skill` | `okf-skill` | `okf-inventory`, `okf-history`, `okf-validate` |
+| `catalogify` *(moved)* | `catalogify` | `catalogify install` | `catalogify` |
 
 Every installer command supports `--install`, `--list`, `--uninstall`, plus
 `--agents claude,cursor,codex,agents` to target specific agents and
@@ -106,14 +106,14 @@ To pull the latest version, re-run the install with `--force` (swap in the
 subdirectory and commands for the skill you want from the table above):
 
 ```bash
-uv tool install --native-tls --force "git+https://github.com/alexcpn/skill-share.git#subdirectory=okf_skill"
-okf-skill --install --force
+uv tool install --native-tls --force "git+https://github.com/alexcpn/skill-share.git#subdirectory=log_tfidf_reducer"
+logreduce-skill --install --force
 ```
 
 `uv tool install --force` replaces the executables; `--install --force`
 overwrites the existing skill files in each agent's skills directory. If the CLI
 is already installed and you only need the newest published version, you can
-also run `uv tool upgrade <uv package>` (e.g. `uv tool upgrade okf-skill`).
+also run `uv tool upgrade <uv package>` (e.g. `uv tool upgrade log-tfidf-reducer`).
 
 Restart the agent afterwards so it re-reads the skill.
 
@@ -124,10 +124,10 @@ tool and its executables:
 
 ```bash
 # 1. Remove the skill from every agent's skills directory
-okf-skill --uninstall
+logreduce-skill --uninstall
 
 # 2. Remove the CLI tool + executables installed by uv
-uv tool uninstall okf-skill
+uv tool uninstall log-tfidf-reducer
 ```
 
 The other skill follows the same shape:
